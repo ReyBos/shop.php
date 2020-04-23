@@ -1,0 +1,12 @@
+#отключаем экранирование ковычек
+php_flag magic_qoutes_gpc Off
+AddDefaultCharset utf-8
+#ищем только файл index.php, остальные не ищем, например index.html
+DirectoryIndex index.php
+
+#перенаправляем все запросы на index.php
+RewriteEngine on
+#если то что запросил пользователь не файл
+RewriteCond %{REQUEST_FILENAME} !-f
+#то перенаправить его на index.php
+RewriteRule ^(.*) index.php

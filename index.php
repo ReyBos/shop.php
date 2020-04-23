@@ -1,52 +1,12 @@
 <?php
 
-abstract class GrandFather
-{
-    public $body = 'Нормальное';
+// для запрета доступа к остальным файлам
+define('VG_ACCESS', true);
 
-    private $nose = 'Кривой';
+header('Content-Type:text/html;charset=utf-8');
+session_start();
 
-    public function eat($calories)
-    {
-        if ($calories > 500) {
-            $this->body = 'Толстое';
-
-        } else {
-            $this->body = 'Худое';
-        }
-    }
-
-    protected function showGrandFatherNose()
-    {
-        return $this->nose;
-    }
-}
-
-class Father extends GrandFather
-{
-    protected $hair = 'Русые';
-
-    public function showGrandFatherNose()
-    {
-        $nose = parent::showGrandFatherNose();
-        $nose .= ' не очень';
-        echo $nose;
-    }
-
-    public function reColorHair($color)
-    {
-        $this->hair = $color;
-    }
-
-    public function getHair()
-    {
-        return $this->hair;
-    }
-}
-
-$masha = new Father();
-$masha->reColorHair('Белые');
-echo $masha->getHair() . '<br>';
-
-$ivan = new Father();
-$ivan->showGrandFatherNose();
+// базовые настройки для быстрого разворачивания на другом хостинге
+require_once 'config.php';
+// фундаментальные настройки, пути к шаблонам, настройки безопасности сайта и т.д.
+require_once 'core/base/settings/internal_settings.php';
