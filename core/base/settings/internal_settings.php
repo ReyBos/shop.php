@@ -3,8 +3,8 @@
 defined('VG_ACCESS') or die('Access denied');
 
 // шаблоны пользовательской части
-const TEMPLATES = 'templates/default/';
-const ADMIN_TEMPLATES = 'core/admin/views/';
+const TEMPLATE = 'templates/default/';
+const ADMIN_TEMPLATE = 'core/admin/views/';
 
 // например если захотим разлогинить пользователей, поменяем версию кук
 const COOKIE_VERSION = '1.0.0';
