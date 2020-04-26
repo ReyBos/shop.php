@@ -13,9 +13,11 @@ session_start();
 require_once 'config.php';
 // фундаментальные настройки, пути к шаблонам, настройки безопасности сайта и т.д.
 require_once 'core/base/settings/internal_settings.php';
+require_once 'libraries/functions.php';
 
 try {
-    RouteController::getInstance()->route();
+//    RouteController::getInstance()->route();
+    RouteController::getInstance();
 
 } catch (RouteException $e) {
     exit($e->getMessage());
