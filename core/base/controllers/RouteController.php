@@ -21,6 +21,9 @@ class RouteController
     // теперь не можем создать объект этого типа извне
     private function __construct()
     {
+        // человеко понятный url (пользовательская часть) будет иметь вид
+        // контроллер/ссылка/параметр/значение, например controller/catalog/iphone/color/red
+        // без чпу контроллер/параметр/значение (news/id/4/text/good)
         $address_str = $_SERVER['REQUEST_URI'];
         if (strrpos($address_str, '/') === strlen($address_str) - 1 && strlen($address_str) !== 1) {
             $this->redirect(rtrim($address_str, '/'), 301);
@@ -35,6 +38,29 @@ class RouteController
 
             if (strpos($address_str, $this->routes['admin']['alias']) === strlen(PATH)) {
                 // админка
+                $url = explode('/', substr($address_str, strlen(PATH . $this->routes['admin']['alias']) + 1));
+
+                if ($url[0] && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . $this->routes['plugins']['path'] . $url[0])) {
+                    // обращаемся к плагину
+                    $plugin = array_shift($url);
+                    $pluginSettings = $this->routes['settings']['path'] . ucfirst($plugin . 'Settings');
+                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . PATH . $pluginSettings . '.php')) {
+                        $pluginSettings = str_replace('/', '\\', $pluginSettings);
+                        $this->routes = $pluginSettings::get('routes');
+                    }
+
+                    $dir = $this->routes['plugins']['dir'] ? '/' . $this->routes['plugins']['dir'] . '/' : '/';
+                    $dir = str_replace('//', '/', $dir);
+
+                    $this->controller = $this->routes['plugins']['path'] . $plugin . $dir;
+                    $hrUrl = $this->routes['plugins']['hrUrl'];
+                    $route = 'plugins';
+
+                } else {
+                    $this->controller = $this->routes['admin']['path'];
+                    $hrUrl = $this->routes['admin']['hrUrl'];
+                    $route = 'admin';
+                }
 
             } else {
                 // пользовательская часть
@@ -45,6 +71,31 @@ class RouteController
             }
 
             $this->createRoute($route, $url);
+
+            if ($url[1]) {
+                $count = count($url);
+                $key = '';
+
+                if (!$hrUrl) {
+                    $i = 1;
+
+                } else {
+                    $this->parameters['alias'] = $url[1];
+                    $i = 2;
+                }
+
+                for ( ; $i < $count; $i++) {
+
+                    if (!$key) {
+                        $key = $url[$i];
+                        $this->parameters[$key] = '';
+
+                    } else {
+                        $this->parameters[$key] = $url[$i];
+                        $key = '';
+                    }
+                }
+            }
 
             exit();
 
@@ -87,6 +138,7 @@ class RouteController
                 $this->controller .= ucfirst($route[0] . "Controller");
 
             } else {
+                $route = $arr;
                 $this->controller .= ucfirst($arr[0] . "Controller");
             }
 

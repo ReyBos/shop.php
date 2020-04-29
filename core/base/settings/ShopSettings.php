@@ -9,9 +9,13 @@ class ShopSettings
     static private $_instance;
     private $baseSettings;
 
-    private $templateArr = [
-        'text' => ['price', 'shop'],
-        'textarea' => ['goods_content'],
+    private $routes = [
+        'plugins' => [
+            'path' => 'core/plugins/',
+            'hrUrl' => false,
+            // false или имя папки с плагином
+            'dir' => false,
+        ],
     ];
 
     private function __construct()
