@@ -11,10 +11,10 @@ class ShopSettings
 
     private $routes = [
         'plugins' => [
-            'path' => 'core/plugins/',
-            'hrUrl' => false,
             // false или имя папки с плагином
             'dir' => false,
+            'routes' => [
+            ],
         ],
     ];
 

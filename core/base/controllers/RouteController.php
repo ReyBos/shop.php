@@ -72,7 +72,7 @@ class RouteController
 
             $this->createRoute($route, $url);
 
-            if ($url[1]) {
+            if (isset($url[1])) {
                 $count = count($url);
                 $key = '';
 
@@ -96,8 +96,6 @@ class RouteController
                     }
                 }
             }
-
-            exit();
 
         } else {
             try {
@@ -131,14 +129,13 @@ class RouteController
 
         if (!empty($arr[0])) {
             // путь пришел из url
-            if ($this->routes[$var]['routes'][$arr[0]]) {
+            if (isset($this->routes[$var]['routes'][$arr[0]])) {
                 // есть алиас для этого контроллера в классе Settings
                 $route = explode('/', $this->routes[$var]['routes'][$arr[0]]);
 
                 $this->controller .= ucfirst($route[0] . "Controller");
 
             } else {
-                $route = $arr;
                 $this->controller .= ucfirst($arr[0] . "Controller");
             }
 

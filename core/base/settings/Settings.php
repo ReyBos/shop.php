@@ -11,6 +11,8 @@ class Settings
             'alias' => 'admin',
             'path' => 'core/admin/controllers/',
             'hrUrl' => false, // отвечает за человеко понятные ссылки
+            'routes' => [
+            ]
         ],
         'settings' => [
             'path' => 'core/base/settings/',
@@ -21,10 +23,9 @@ class Settings
             'dir' => false,
         ],
         'user' => [
-            'path' => 'core/user/controllers',
+            'path' => 'core/user/controllers/',
             'hrUrl' => true,
             'routes' => [
-                'catalog' => 'site/input/output'
             ],
         ],
         'default' => [
@@ -88,7 +89,7 @@ class Settings
 
         foreach ($arrays as $array) {
             foreach ($array as $key => $value) {
-                if (is_array($value) && is_array($base[$key])) {
+                if (is_array($value) && array_key_exists($key, $base) && is_array($base[$key])) {
                     $base[$key] = $this->arrayMergeRecursive($base[$key], $value);
 
                 } else {
