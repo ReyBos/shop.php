@@ -38,7 +38,7 @@ function autoloadMainClasses($class_name)
     $class_name = str_replace('\\', '/', $class_name);
 
     if (!file_exists($class_name . '.php')) {
-        throw new RouteException('Не верное имя файла для поключения - ' . $class_name . '.php');
+        throw new RouteException('Неверное имя файла для поключения - ' . $class_name . '.php');
     }
 
     include_once $class_name . '.php';
