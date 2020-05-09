@@ -24,13 +24,13 @@ const QTY_LINKS = 3;
 
 // пути к файлам для админки
 const ADMIN_CSS_JS = [
-    'styles' => [],
-    'scripts' => [],
+    'styles' => ['site-admin.css'],
+    'scripts' => ['site-admin.js'],
 ];
 // пути к файлам для пользовательской части
 const USER_CSS_JS = [
-    'styles' => [],
-    'scripts' => [],
+    'styles' => ['site-user.ccs'],
+    'scripts' => ['site-user.js'],
 ];
 
 function autoloadMainClasses($class_name)
