@@ -4,31 +4,6 @@ namespace core\base\controllers;
 
 trait BaseMethods
 {
-    protected $styles;
-    protected $scripts;
-
-    //будет инициализировать стили и скрипты из констант в настройках
-    protected function init($admin = false)
-    {
-        if (!$admin) {
-            $this->fillProperty(USER_CSS_JS['styles'], 'styles');
-            $this->fillProperty(USER_CSS_JS['scripts'], 'scripts');
-
-        } else {
-            $this->fillProperty(ADMIN_CSS_JS['styles'], 'styles');
-            $this->fillProperty(ADMIN_CSS_JS['scripts'], 'scripts');
-        }
-    }
-
-    protected function fillProperty($properties, $propertyName)
-    {
-        if ($properties) {
-            foreach ($properties as $item) {
-                $this->$propertyName[] = PATH . TEMPLATE . trim($item, '/');
-            }
-        }
-    }
-
     protected function clearStr($str)
     {
         if (is_array($str)) {

@@ -7,7 +7,7 @@ use core\base\settings\Settings;
 
 class RouteController extends BaseController
 {
-    static private $_instance;
+    use Singleton;
 
     protected $routes;
 
@@ -104,20 +104,6 @@ class RouteController extends BaseController
                 exit($e->getMessage());
             }
         }
-    }
-
-    private function __clone()
-    {
-        // копию объекта тоже не сможем создать извне
-    }
-
-    public static function getInstance()
-    {
-        if (self::$_instance instanceof self) {
-            return self::$_instance;
-        }
-
-        return self::$_instance = new self;
     }
 
     private function createRoute($var, $arr)

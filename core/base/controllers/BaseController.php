@@ -15,6 +15,8 @@ abstract class BaseController
     protected $inputMethod;
     protected $outputMethod;
     protected $parameters;
+    protected $styles;
+    protected $scripts;
 
     public function route()
     {
@@ -55,7 +57,7 @@ abstract class BaseController
         }
 
         if ($this->errors) {
-            $this->writeLog();
+            $this->writeLog($this->errors);
         }
 
         $this->getPage();
@@ -103,4 +105,27 @@ abstract class BaseController
 
         exit();
     }
+
+    //будет инициализировать стили и скрипты из констант в настройках
+    protected function init($admin = false)
+    {
+        if (!$admin) {
+            $this->fillProperty(USER_CSS_JS['styles'], 'styles', TEMPLATE);
+            $this->fillProperty(USER_CSS_JS['scripts'], 'scripts', TEMPLATE);
+
+        } else {
+            $this->fillProperty(ADMIN_CSS_JS['styles'], 'styles', ADMIN_TEMPLATE);
+            $this->fillProperty(ADMIN_CSS_JS['scripts'], 'scripts', ADMIN_TEMPLAT);
+        }
+    }
+
+    protected function fillProperty($properties, $propertyName, $template)
+    {
+        if ($properties) {
+            foreach ($properties as $item) {
+                $this->$propertyName[] = PATH . $template . trim($item, '/');
+            }
+        }
+    }
+
 }

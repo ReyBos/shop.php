@@ -2,9 +2,11 @@
 
 namespace core\base\settings;
 
+use core\base\controllers\Singleton;
+
 class Settings
 {
-    static private $_instance;
+    use Singleton;
 
     private $routes = [
         'admin' => [
@@ -41,26 +43,9 @@ class Settings
         'textarea' => ['content', 'keywords'],
     ];
 
-    private function __construct()
-    {
-    }
-
-    private function __clone()
-    {
-    }
-
-    public static function getInstance()
-    {
-        if (self::$_instance instanceof self) {
-            return self::$_instance;
-        }
-
-        return self::$_instance = new self;
-    }
-
     public static function get($property)
     {
-        return self::getInstance()->$property ?? null;
+        return self::instance()->$property ?? null;
     }
 
     public function clueProperties($class)

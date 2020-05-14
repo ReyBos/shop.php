@@ -16,7 +16,7 @@ require_once 'core/base/settings/internal_settings.php';
 require_once 'libraries/functions.php';
 
 try {
-    RouteController::getInstance()->route();
+    RouteController::instance()->route();
 
 } catch (RouteException $e) {
     exit($e->getMessage());
