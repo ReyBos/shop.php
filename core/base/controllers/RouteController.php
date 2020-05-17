@@ -30,7 +30,7 @@ class RouteController extends BaseController
             $this->routes = Settings::get('routes');
 
             if (!$this->routes) {
-                throw new RouteException('Сайт находится на техническом обслуживании');
+                throw new RouteException('Отсутствуют маршруты в базовых настройках', 1);
             }
 
             $url = explode('/', substr($address_str, strlen(PATH)));
@@ -97,12 +97,7 @@ class RouteController extends BaseController
             }
 
         } else {
-            try {
-                throw new \Exception('Не корректная директория сайта');
-
-            } catch (\Exception $e) {
-                exit($e->getMessage());
-            }
+            throw new RouteException('Не корректная директория сайта', 1);
         }
     }
 

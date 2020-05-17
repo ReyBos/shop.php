@@ -8,5 +8,6 @@ DirectoryIndex index.php
 RewriteEngine on
 #если то что запросил пользователь не файл
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !^favicon\.ico
 #то перенаправить его на index.php
 RewriteRule ^(.*) index.php
