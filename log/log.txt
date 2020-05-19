@@ -1,8 +1,0 @@
-Fault: 17-05-2020 12:04:05 - Неверное имя файла для поключения - core/user/controllers/IndexController.php
-file /private/var/www/shop.php/core/base/settings/internal_settings.php
-In line 41
-
-Fault: 17-05-2020 12:05:57 - Неверное имя файла для поключения - core/user/controllers/IndexController.php
-file /private/var/www/shop.php/core/base/settings/internal_settings.php
-In line 41
-

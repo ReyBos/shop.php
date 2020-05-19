@@ -39,7 +39,7 @@ class RouteController extends BaseController
                 // админка
                 array_shift($url);
 
-                if ($url[0] && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . $this->routes['plugins']['path'] . $url[0])) {
+                if (isset($url[0]) && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . $this->routes['plugins']['path'] . $url[0])) {
                     // обращаемся к плагину
                     $plugin = array_shift($url);
                     $pluginSettings = $this->routes['settings']['path'] . ucfirst($plugin . 'Settings');
